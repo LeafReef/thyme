@@ -7,7 +7,20 @@ import Sensor from "../models/Sensor";
  * @route GET /api/list
  */
 export const getAllData = (req: Request, res: Response): void => {
-  res.send("Hello world");
+  interface IParsedData {
+    temperature: number;
+    humidity: number;
+  }
+
+  Sensor.findOne()
+    .sort({ createdAt: -1 })
+    .then((result: IParsedData) => {
+      res.send(result);
+      logger.info(result);
+    })
+    .catch((err: string) => {
+      logger.error(err);
+    });
 };
 
 /**
