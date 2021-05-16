@@ -3,8 +3,6 @@ import logger from "../util/logger";
 
 const { MONGO_URI } = process.env;
 
-console.log(MONGO_URI);
-
 export const connectDB = (): void => {
   logger.info("Connecting to database...");
 
