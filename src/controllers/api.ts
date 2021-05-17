@@ -1,64 +1,67 @@
 import { Response, Request } from "express";
 import logger from "../util/logger";
-import Sensor from "../models/Sensor";
+import SensorData from "../models/SensorData";
 
 /**
- * Read all results
+ * Read sensor data
  * @route GET /api/list
  */
-export const getAllData = (req: Request, res: Response): void => {
-  interface IParsedData {
+export const readData = (req: Request, res: Response): void => {
+  interface ISensorData {
     temperature: number;
     humidity: number;
+    moisture: number;
   }
 
-  Sensor.findOne()
+  SensorData.findOne()
     .sort({ createdAt: -1 })
-    .then((result: IParsedData) => {
+    .then((result: ISensorData) => {
       res.send(result);
-      logger.info(result);
+      logger.info(`Found ${result}`);
     })
     .catch((err: string) => {
-      logger.error(err);
+      logger.error(`Error reading data: ${err}`);
     });
 };
 
 /**
- * Insert data in db
+ * Insert sensor data
  * @route POST /api/insert
  */
 export const insertData = (req: Request, res: Response): void => {
-  interface IParsedData {
+  interface ISensorData {
     temperature: number;
     humidity: number;
+    moisture: number;
   }
 
-  // Delete most recent data
-  Sensor.deleteOne()
+  // Remove most recent data
+  SensorData.deleteOne()
     .sort({ createdAt: -1 })
-    .then((result: IParsedData) => {
-      logger.info(`Deleted ${result}`);
+    .then((result: ISensorData) => {
+      logger.info(`Removed ${result}`);
     })
     .catch((err: string) => {
-      logger.error(`Error deleting data: ${err}`);
+      logger.error(`Error removing data: ${err}`);
     });
 
   // Parse request body
-  const { temperature, humidity } = req.body;
-  const parsedData: IParsedData = {
+  const { temperature, humidity, moisture } = req.body;
+  const parsedData: ISensorData = {
     temperature,
-    humidity
+    humidity,
+    moisture
   };
 
   // Save data
-  const sensorValue = new Sensor(parsedData);
-  sensorValue
+  const sensorData = new SensorData(parsedData);
+  sensorData
     .save()
-    .then((result: IParsedData) => {
+    .then((result: ISensorData) => {
       res.send(result);
       logger.info(`Saved ${result}`);
     })
     .catch((err: string) => {
-      logger.error(`Error saving data: ${err}`);
+      logger.error(`Error inserting data: ${err}`);
     });
 };

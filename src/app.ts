@@ -18,7 +18,7 @@ app.use(cors());
 connectDB();
 
 // API routes
-app.get("/api/list", apiController.getAllData);
+app.get("/api/list", apiController.readData);
 app.post("/api/insert", apiController.insertData);
 
 export { app };

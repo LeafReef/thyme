@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 const { Schema } = mongoose;
 
-const SensorSchema = new Schema({
+const SensorDataSchema = new Schema({
   temperature: {
     type: Number,
     required: true
@@ -10,7 +10,11 @@ const SensorSchema = new Schema({
   humidity: {
     type: Number,
     required: true
+  },
+  moisture: {
+    type: Number,
+    required: true
   }
 });
 
-export default mongoose.model("Sensor", SensorSchema);
+export default mongoose.model("SensorData", SensorDataSchema);
