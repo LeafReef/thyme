@@ -10,10 +10,6 @@ const SensorDataSchema = new Schema({
   humidity: {
     type: Number,
     required: true
-  },
-  moisture: {
-    type: Number,
-    required: true
   }
 });
 

@@ -10,7 +10,6 @@ export const readData = (req: Request, res: Response): void => {
   interface ISensorData {
     temperature: number;
     humidity: number;
-    moisture: number;
   }
 
   SensorData.findOne()
@@ -32,7 +31,6 @@ export const insertData = (req: Request, res: Response): void => {
   interface ISensorData {
     temperature: number;
     humidity: number;
-    moisture: number;
   }
 
   // Remove most recent data
@@ -46,11 +44,10 @@ export const insertData = (req: Request, res: Response): void => {
     });
 
   // Parse request body
-  const { temperature, humidity, moisture } = req.body;
+  const { temperature, humidity } = req.body;
   const parsedData: ISensorData = {
     temperature,
-    humidity,
-    moisture
+    humidity
   };
 
   // Save data
