@@ -16,13 +16,7 @@
   "bugs": {
     "url": "https://github.com/LeafReef/thyme/issues"
   },
-  "keywords": [
-    "typescript",
-    "monogdb",
-    "express"
-  ],
   "author": "Maximilian Hagelstam",
-  "license": "MIT",
   "devDependencies": {
     "@types/cors": "^2.8.10",
     "@types/express": "^4.17.11",
