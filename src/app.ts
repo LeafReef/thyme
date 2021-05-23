@@ -7,6 +7,7 @@ import { connectDB } from "./config/db";
 
 // Controllers
 import * as apiController from "./controllers/api";
+import * as homeController from "./controllers/home";
 
 const app = express();
 
@@ -17,7 +18,8 @@ app.use(cors());
 
 connectDB();
 
-// API routes
+// Routes
+app.get("/", homeController.checkHealth);
 app.get("/api/list", apiController.readData);
 app.post("/api/insert", apiController.insertData);
 
